@@ -1,0 +1,32 @@
+{
+  "env": {
+    "browser": true,
+    "commonjs": true,
+    "es2020": true,
+    "jasmine": true
+  },
+  "globals": {
+    "angular": true
+  },
+  "extends": [
+    "airbnb-base",
+    "eslint:recommended",
+    "plugin:jasmine/recommended"
+  ],
+  "parserOptions": {
+    "ecmaVersion": 11
+  },
+  "plugins": ["jasmine"],
+  "rules": {
+    "linebreak-style": [2, "windows"],
+    "require-await": [2],
+    "no-console": "off",
+    "semi": "error",
+    "no-unused-vars": ["warn", { "vars": "all", "args": "after-used", "ignoreRestSiblings": false }],
+    "arrow-body-style": ["error", "always"],
+    "no-param-reassign": ["error", { "props": false }],
+    "no-useless-escape": "off",
+    "max-len": ["error", { "code": 200 }],
+    "no-use-before-define": ["error", { "functions": false, "classes": false }]
+  }
+}

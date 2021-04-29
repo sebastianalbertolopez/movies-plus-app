@@ -1,0 +1,23 @@
+{
+  "env": {
+    "browser": true,
+    "commonjs": true,
+    "es2020": true
+  },
+  "extends": [
+    "airbnb-base"
+  ],
+  "parserOptions": {
+    "ecmaVersion": 11
+  },
+  "plugins": ["jest"],
+  "rules": {
+    "linebreak-style": [2, "windows"],
+    "require-await": [2],
+    "no-console": "off",
+    "semi": "error",
+    "no-unused-vars": ["warn", { "vars": "all", "args": "after-used", "ignoreRestSiblings": false }],
+    "arrow-body-style": ["error", "always"],
+    "brace-style": ["stroustrup", { "allowSingleLine": true }]
+  }
+}
