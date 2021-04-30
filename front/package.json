@@ -4,7 +4,7 @@
   "description": "Front-End Concessionaire App",
   "main": "./src/app/app.js",
   "scripts": {
-    "start": "webpack-dev-server --open --watch",
+    "start": "webpack-dev-server --open --inline --watch",
     "build": "webpack --mode production --progress --hide-modules",
     "bundle:dev": "webpack --mode development --watch",
     "lint": "eslint .",
@@ -23,15 +23,17 @@
     "angular-ui-router": "1.0.20",
     "angular-ui-sortable": "0.17.2",
     "angular-ui-tree": "2.22.6",
-    "bootstrap": "^4.6.0",
+    "bootstrap-colorpicker": "2.5.3",
+    "bootstrap-sass": "3.4.0",
     "eonasdan-bootstrap-datetimepicker": "4.17.47",
     "font-awesome": "4.7.0",
     "jsonformatter": "0.6.0",
     "moment": "2.22.2",
     "moment-timezone": "0.5.31",
     "ng-dialog": "1.4.0",
-    "webpack-jquery-ui": "^2.0.1",
-    "core-js": "3.11.1"
+    "core-js": "3.11.1",
+    "dotenv": "^8.2.0",
+    "jquery": "3.4.1"
   },
   "devDependencies": {
     "@babel/core": "^7.13.16",

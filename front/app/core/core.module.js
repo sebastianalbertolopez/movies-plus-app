@@ -1,4 +1,4 @@
-import routerHelperProvider from './router-helper.provider';
+import routerHelperProvider from './services/router-helper.provider';
 
 const coreModule = angular.module('core', []);
 

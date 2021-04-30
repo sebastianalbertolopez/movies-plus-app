@@ -1,6 +1,4 @@
 export default function appRoutes($urlRouterProvider, $stateProvider) {
-  const DEFAULT_PAGE_STATE = 'main.home';
-
   $stateProvider
     .state('main', {
       url: '',
@@ -11,7 +9,7 @@ export default function appRoutes($urlRouterProvider, $stateProvider) {
           return localSettings.getSettings();
         }], */
       },
-      redirectTo: DEFAULT_PAGE_STATE,
+      redirectTo: process.env.DEFAULT_PAGE_STATE,
     })
     .state('main.404', {
       url: '/404',

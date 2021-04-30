@@ -9,8 +9,6 @@ function getStates() {
       config: {
         url: '/',
         template: '<h1>Home</h1>',
-        controller: () => {},
-        controllerAs: '$ctrl',
       },
     },
   ];

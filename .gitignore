@@ -1,3 +1,5 @@
-./api/.env
-./api/node_modules
-./front/node_modules
+/api/.env
+/api/node_modules
+/api/database/*.sqlite3
+
+/front/node_modules
