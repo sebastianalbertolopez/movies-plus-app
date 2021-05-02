@@ -1,9 +1,10 @@
+import './styles/sass/app.scss';
+
 import angular from 'angular';
 import moment from 'moment';
 
 // Dependencies
 import 'jquery';
-import 'bootstrap-sass';
 import 'angular-animate';
 import 'angular-cookies';
 import 'angular-translate';
@@ -15,13 +16,14 @@ import 'jsonformatter';
 import 'angular-ui-sortable';
 import 'angular-ui-tree';
 import 'angular-filter';
+import 'bootstrap-sass';
 import 'bootstrap-colorpicker';
-import 'eonasdan-bootstrap-datetimepicker';
 import ngFileSaver from 'angular-file-saver';
 
 // Modules
-import homeModule from './layout/home/home.module';
+import layoutModule from './layout/layout.module';
 import coreModule from './core/core.module';
+import uiModule from './ui/ui.module';
 
 // App routes
 import appRoutes from './app.routes';
@@ -40,8 +42,9 @@ angular
     'angular.filter',
     'ui.tree',
     ngFileSaver,
-    homeModule.name,
+    layoutModule.name,
     coreModule.name,
+    uiModule.name,
   ])
   .constant('moment', moment)
   .config([

@@ -8,7 +8,7 @@ function getStates() {
       state: 'main.home',
       config: {
         url: '/',
-        template: '<h1>Home</h1>',
+        template: '<home></home>',
       },
     },
   ];

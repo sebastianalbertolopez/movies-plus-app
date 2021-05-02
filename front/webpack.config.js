@@ -31,10 +31,25 @@ module.exports = {
         loader: 'babel-loader',
         options: { presets: ['@babel/env'] },
       },
+      /* {
+        test: /\.(ttf|eot|svg|woff|woff2|png)(\?v=[0-9]\.[0-9]\.[0-9])?$/i,
+        loader: 'file-loader',
+        options: {
+          outputPath: path.resolve(__dirname, 'dist/fonts'),
+        },
+      }, */
+      {
+        test: /\.(woff|woff2)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+        loader: 'url-loader',
+      },
+      {
+        test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+        loader: 'file-loader',
+      },
     ],
   },
   resolve: {
-    extensions: ['.js', '.json'],
+    extensions: ['.js', '.json', '.scss'],
   },
   plugins: [
     new HtmlWebpackPlugin({
