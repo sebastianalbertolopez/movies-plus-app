@@ -7,7 +7,7 @@ function homeComponentCtrl() {
 }
 
 export default {
-  templateUrl: 'app/layout/home/home.component.html',
+  templateUrl: 'app/core/home/home.component.html',
   controller: homeComponentCtrl,
-  bindings: {},
+  bindings: {}
 };

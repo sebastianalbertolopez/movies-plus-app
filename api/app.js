@@ -9,6 +9,8 @@ dotenv.config();
 const helmet = require('helmet');
 const cookieParser = require('cookie-parser');
 
+const { customErrorMiddleware } = require('./middlewares/errorsHandler');
+const { ErrorHandler } = require('./helpers/errorHandler');
 const apiRoutes = require('./routes/api');
 
 const { PORT } = process.env;
@@ -34,6 +36,19 @@ if (ENV === 'production') {
 
 app.use('/api', apiRoutes);
 
+app.all('*', (req, res, next) => {
+  next(new ErrorHandler(`Can't find ${req.originalUrl} on this server!`, 404));
+});
+
+app.use(customErrorMiddleware);
+
 app.listen(PORT, () => { console.log(`Listening on port ${PORT}, environment ${ENV}`); });
 
 module.exports = app;
+
+// Unhandled Rejections
+process.on('unhandledRejection', (err) => {
+  console.log(err.name, err.message);
+  console.log('UNHANDLED REJECTION! 💥 Shutting down...');
+  process.exit(1);
+});

@@ -1,0 +1,26 @@
+.wrapper {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  overflow-y: hidden;
+
+  width: 100%;
+  overflow-x: hidden;
+
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+
+  .main-content {
+    background: #fafafa;
+    display: flex;
+    flex: 1;
+    width: auto;
+    position: relative;
+    padding: 1em;
+    overflow-y: auto;
+    scroll-behavior: smooth;
+  }
+}

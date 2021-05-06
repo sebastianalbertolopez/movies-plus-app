@@ -5,7 +5,7 @@ body {
   font-family: "open sans", "Helvetica Neue", Helvetica;
   height: 100%;
   width: 100%;
-  background: #fafafa;
+  background-color: $gray-bg;
   font-size: 13px;
   max-width: 100%;
   overflow-x: hidden;
@@ -15,9 +15,12 @@ body {
   flex-direction: column;
 }
 #root-view {
-  min-height: 100vh;
-  display: flex;
-  flex: 1;
-  width: auto;
-  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  position: relative;
+  background-color: $gray-bg;
+}
+
+.clickable {
+  @include clickable();
 }

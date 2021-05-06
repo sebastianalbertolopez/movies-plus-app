@@ -5,19 +5,28 @@
     "es2020": true
   },
   "extends": [
-    "airbnb-base"
+    "airbnb-base",
+    "eslint:recommended"
   ],
   "parserOptions": {
     "ecmaVersion": 11
   },
-  "plugins": ["jest"],
+  "plugins": [],
   "rules": {
     "linebreak-style": [2, "windows"],
     "require-await": [2],
     "no-console": "off",
     "semi": "error",
     "no-unused-vars": ["warn", { "vars": "all", "args": "after-used", "ignoreRestSiblings": false }],
-    "arrow-body-style": ["error", "always"],
-    "brace-style": ["stroustrup", { "allowSingleLine": true }]
-  }
+    "no-param-reassign": ["error", { "props": false }],
+    "no-useless-escape": "off",
+    "max-len": ["error", { "code": 500 }],
+    "no-use-before-define": ["error", { "functions": false, "classes": false }],
+    "brace-style": ["error", "stroustrup", { "allowSingleLine": true }],
+    "arrow-body-style": ["error", "as-needed", { "requireReturnForObjectLiteral": true }],// ["error", "as-needed"],
+    "object-curly-newline": ["error", { "multiline": true }],
+    "comma-dangle": ["error", "never"],
+    "arrow-parens": [2, "as-needed", { "requireForBlockBody": true }]
+  },
+  "globals": {}
 }

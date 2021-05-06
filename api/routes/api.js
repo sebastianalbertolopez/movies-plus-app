@@ -1,5 +1,7 @@
 const router = require('express').Router();
 
-router.use('/cars', require('./cars'));
+router.use('/movies', require('./movies'));
+
+router.use('/files', require('./files'));
 
 module.exports = router;

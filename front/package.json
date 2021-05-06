@@ -1,7 +1,7 @@
 {
-  "name": "concessionaire-front",
+  "name": "movies-plus-front",
   "version": "1.0.0",
-  "description": "Front-End Concessionaire App",
+  "description": "Front-End Movies App",
   "main": "./src/app/app.js",
   "scripts": {
     "start": "webpack-dev-server --open --inline --watch",
@@ -59,7 +59,7 @@
     "webpack-dev-server": "3.11.0"
   },
   "keywords": [
-    "concessionaire",
+    "movies",
     "front"
   ],
   "author": "Sebastián López",

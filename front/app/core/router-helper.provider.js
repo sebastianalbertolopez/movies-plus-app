@@ -19,7 +19,7 @@ export default function routerHelperProvider($stateProvider, $urlRouterProvider)
 
     return {
       configureStates,
-      getStates,
+      getStates
     };
   }
 

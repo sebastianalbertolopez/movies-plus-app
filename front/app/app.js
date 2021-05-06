@@ -21,15 +21,14 @@ import 'bootstrap-colorpicker';
 import ngFileSaver from 'angular-file-saver';
 
 // Modules
-import layoutModule from './layout/layout.module';
 import coreModule from './core/core.module';
-import uiModule from './ui/ui.module';
+import layoutModule from './layout/layout.module';
 
 // App routes
 import appRoutes from './app.routes';
 
 angular
-  .module('concessionaire-app', [
+  .module('movies-plus-app', [
     'ngAnimate',
     'ngCookies',
     'ui.router',
@@ -43,23 +42,20 @@ angular
     'ui.tree',
     ngFileSaver,
     layoutModule.name,
-    coreModule.name,
-    uiModule.name,
+    coreModule.name
   ])
   .constant('moment', moment)
   .config([
     '$qProvider',
     '$translateProvider',
     'cfpLoadingBarProvider',
-    '$urlRouterProvider',
     '$stateProvider',
-    '$locationProvider',
+    // '$locationProvider',
     (
       $qProvider,
       $translateProvider,
       cfpLoadingBarProvider,
-      $urlRouterProvider,
-      $stateProvider,
+      $stateProvider
       /* $locationProvider, */
     ) => {
       /* $locationProvider.html5Mode({
@@ -77,6 +73,6 @@ angular
       cfpLoadingBarProvider.loadingBarTemplate = '<div id="loading-bar"><div class="bar"></div></div>';
 
       // Initial Routes
-      appRoutes($urlRouterProvider, $stateProvider);
-    },
+      appRoutes($stateProvider);
+    }
   ]);

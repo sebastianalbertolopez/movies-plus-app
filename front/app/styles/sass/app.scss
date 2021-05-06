@@ -11,9 +11,10 @@
 $icon-font-path: '~bootstrap-sass/assets/fonts/bootstrap/';
 @import 'bootstrap-sass/assets/stylesheets/_bootstrap.scss';
 
-@import './base/general';
-
 @import './utilities/variables';
+@import './utilities/mixins';
+
+@import './base/general';
 
 @import './layout/page-frame';
 

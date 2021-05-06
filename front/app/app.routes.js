@@ -1,14 +1,8 @@
-export default function appRoutes($urlRouterProvider, $stateProvider) {
+export default function appRoutes($stateProvider) {
   $stateProvider
     .state('main', {
       url: '',
       template: '<ui-view></ui-view>',
-      redirectTo: process.env.DEFAULT_PAGE_STATE,
-    })
-    .state('main.404', {
-      url: '/404',
-      template: '<h1>Error</h1>',
+      redirectTo: process.env.DEFAULT_PAGE_STATE
     });
-
-  $urlRouterProvider.otherwise('404');
 }

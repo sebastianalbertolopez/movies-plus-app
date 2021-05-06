@@ -1,5 +1,6 @@
-import homeModule from './home/home.module';
+import headerComponent from './header/header.component';
 
-export default angular.module('layoutModule', [
-  homeModule.name,
-]);
+const layoutModule = angular.module('layoutModule', []);
+
+export default layoutModule
+  .component('header', headerComponent);

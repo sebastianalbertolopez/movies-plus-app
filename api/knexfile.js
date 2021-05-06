@@ -1,21 +1,23 @@
-// Update with your config settings.
+const dotenv = require('dotenv');
+
+dotenv.config();
+
 module.exports = {
   development: {
-    // our DBMS driver
-    client: 'sqlite3',
-    // the location of our db & will create the database
+    client: 'pg',
     connection: {
-      filename: './database/concessionaire.db3',
+      host: process.env.DB_HOST,
+      user: process.env.DB_USER,
+      password: process.env.DB_PASSWORD,
+      database: process.env.DB_DATABASE,
     },
-    // necessary when using sqlite3
     useNullAsDefault: true,
     migrations: {
-      // will create your migrations in the data folder automatically
       directory: './database/migrations',
     },
-    // will create your seeds in the data folder automatically
     seeds: {
       directory: './database/seeds',
     },
+    pool: { min: 0, max: 10 },
   },
 };
