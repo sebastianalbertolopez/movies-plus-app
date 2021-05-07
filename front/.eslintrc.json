@@ -25,10 +25,10 @@
     "no-unused-vars": ["warn", { "vars": "all", "args": "after-used", "ignoreRestSiblings": false }],
     "no-param-reassign": ["error", { "props": false }],
     "no-useless-escape": "off",
-    "max-len": ["error", { "code": 200 }],
+    "max-len": ["error", { "code": 500 }],
     "no-use-before-define": ["error", { "functions": false, "classes": false }],
     "brace-style": ["error", "stroustrup", { "allowSingleLine": true }],
-    "arrow-body-style": ["error", "as-needed"],
+    "arrow-body-style": ["error", "as-needed", { "requireReturnForObjectLiteral": true }],// ["error", "as-needed"],
     "object-curly-newline": ["error", { "multiline": true }],
     "comma-dangle": ["error", "never"],
     "arrow-parens": [2, "as-needed", { "requireForBlockBody": true }]

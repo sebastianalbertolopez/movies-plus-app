@@ -56,7 +56,6 @@ router.get('/:uuid', (req, res) => {
     .where({ uuid })
     .then((images) => {
       if (images[0]) {
-        console.log(images[0]);
         const dirname = path.resolve();
         const fullfilepath = path.join(dirname, images[0].path);
         return res.type(images[0].mime_type).sendFile(fullfilepath);

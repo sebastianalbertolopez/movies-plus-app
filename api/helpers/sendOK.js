@@ -1,5 +1,5 @@
 const common = require('./common');
-const { ErrorHandler } = require('./errorHandler');
+const ErrorHandler = require('./errorHandler');
 
 const sendOK = (res, body) => {
   if (!common.isObject(body)) {

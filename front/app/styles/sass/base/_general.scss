@@ -21,6 +21,43 @@ body {
   background-color: $gray-bg;
 }
 
+.page-header {
+  border-bottom: 1px solid $black-bg;
+  margin-top: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .title {
+    flex: 1;
+    font-size: 2rem;
+  }
+  .actions {}
+}
+
+.thumbnail {
+  .title {
+    font-weight: 600;
+    font-size: 1.4rem;
+    display: block;
+    color: var(--be-text);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  &:hover {
+    border: 1px solid $gray;
+    box-shadow: 0 5px 2px -2px rgba(137, 137, 137, .3);
+  }
+  .genders {
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 1rem;
+    color: $gray;
+  }
+}
+
 .clickable {
   @include clickable();
 }

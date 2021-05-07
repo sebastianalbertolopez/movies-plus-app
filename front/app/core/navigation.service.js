@@ -7,10 +7,13 @@ export default function navigationService($state, $location) {
       $location.url(URL);
     },
     goToMoviesListPage: () => {
-      $state.go('main.home.movies');
+      $state.go('main.home.movies.list');
     },
-    goToSeriesListPage: () => {
-      $state.go('main.home.series');
+    goToMovieCreationPage: () => {
+      $state.go('main.home.movies.create');
+    },
+    goToMovieDetailPage: (id) => {
+      $state.go('main.home.movies.detail', { id });
     }
   };
 

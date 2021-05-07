@@ -10,7 +10,7 @@ const helmet = require('helmet');
 const cookieParser = require('cookie-parser');
 
 const { customErrorMiddleware } = require('./middlewares/errorsHandler');
-const { ErrorHandler } = require('./helpers/errorHandler');
+const ErrorHandler = require('./helpers/errorHandler');
 const apiRoutes = require('./routes/api');
 
 const { PORT } = process.env;

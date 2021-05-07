@@ -1,1 +1,19 @@
-<h1>{{$ctrl.title}}</h1>
+<div ng-if="$ctrl.isInitialized">
+  <div class="page-header">
+    <div class="title">Listado de películas</div>
+    <div class="actions">
+      <button type="button" class="btn btn-primary" ng-click="$ctrl.createMovie();">Agregar</button>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-6 col-md-3" ng-repeat="movie in $ctrl.movies">
+      <div class="thumbnail clickable" ng-click="$ctrl.goToMovieDetail(movie.id);">
+        <img class="img-responsive" ng-src="{{movie.fileUrl}}" />
+        <div class="caption text-center">
+          <div class="title">{{movie.name}}</div>
+          <div class="genders">{{movie.genders.join(', ')}}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

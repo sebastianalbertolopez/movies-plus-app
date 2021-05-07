@@ -6,12 +6,12 @@ const moviesController = {};
 
 moviesController.getAll = catchAsync(async (req, res, next) => {
   const movies = await movie.getAll();
-  sendOK(res, { data: movies });
+  sendOK(res, movies);
 });
 
 moviesController.get = catchAsync(async (req, res, next) => {
   const entity = await movie.getById(req.params.id);
-  sendOK(res, { data: entity });
+  sendOK(res, entity);
 });
 
 moviesController.create = catchAsync(async (req, res, next) => {

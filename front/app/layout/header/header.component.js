@@ -4,19 +4,11 @@ function headerComponentCtrl(navigationService) {
   $ctrl.$onInit = () => {
     $ctrl.pages = [
       {
-        name: 'Movies',
-        code: 'movies',
+        name: 'Películas',
+        code: 'peliculas',
         onClick: () => {
-          $ctrl.activePageCode = 'movies';
+          $ctrl.activePageCode = 'peliculas';
           navigationService.goToMoviesListPage();
-        }
-      },
-      {
-        name: 'Series',
-        code: 'series',
-        onClick: () => {
-          $ctrl.activePageCode = 'series';
-          navigationService.goToSeriesListPage();
         }
       }
     ];
@@ -24,7 +16,7 @@ function headerComponentCtrl(navigationService) {
     $ctrl.activePageCode = $ctrl.pages[0].code;
   };
 
-  $ctrl.goToHomePage = () => {
+  $ctrl.goToMoviesListPage = () => {
     navigationService.goToMoviesListPage();
   };
 }

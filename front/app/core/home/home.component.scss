@@ -15,12 +15,13 @@
 
   .main-content {
     background: #fafafa;
-    display: flex;
+    // display: flex;
     flex: 1;
     width: auto;
     position: relative;
     padding: 1em;
     overflow-y: auto;
+    overflow-x: hidden;
     scroll-behavior: smooth;
   }
 }
