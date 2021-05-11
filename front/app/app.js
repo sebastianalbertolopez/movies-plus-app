@@ -57,16 +57,18 @@ angular
   .constant('moment', moment)
   .config([
     '$qProvider',
+    '$httpProvider',
     '$translateProvider',
     'cfpLoadingBarProvider',
     '$stateProvider',
-    // '$locationProvider',
     (
       $qProvider,
+      $httpProvider,
       $translateProvider,
       cfpLoadingBarProvider,
       $stateProvider
     ) => {
+      $httpProvider.interceptors.push('httpInterceptor');
       $translateProvider.preferredLanguage('es');
 
       $qProvider.errorOnUnhandledRejections(false);

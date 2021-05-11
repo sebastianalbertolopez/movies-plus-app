@@ -1,4 +1,3 @@
-const path = require('path');
 const fs = require('fs').promises;
 const uuid = require('uuid/v4');
 const db = require('../database/config');
@@ -103,7 +102,80 @@ movieModel.create = async ({ code, name, originalName, duration, file, year, gen
   return { id: movieId, name };
 };
 
-movieModel.update = async (movie) => {};
+movieModel.update = async (movie) => {
+  let previousFile = null;
+  let fileId = null;
+
+  const hasSameFile = movie.file.id && movie.file.uuid;
+
+  // No se modificó la imagen
+  if (hasSameFile) {
+    fileId = movie.file.id;
+  }
+  // Se modificó la imagen
+  else {
+    const fileUuid = uuid();
+    const extension = movie.file.name.split('.').pop();
+    const fileName = `${fileUuid}.${extension}`;
+
+    await fs.writeFile(
+      `public/uploads/${fileName}`,
+      movie.file.base64Content,
+      'base64',
+      err => Promise.reject(err)
+    );
+
+    [fileId] = await db
+      .insert({
+        name: `${fileName}`,
+        uuid: fileUuid,
+        original_name: movie.file.name,
+        extension,
+        destination: 'public/uploads',
+        path: `public//uploads//${fileName}`,
+        mime_type: movie.file.type,
+        size: movie.file.size
+      })
+      .into('file')
+      .returning('id');
+
+    previousFile = await db('movie').select('file_id').where({ id: movie.id }).first();
+  }
+
+  // Se eliminan los géneros de la película y se vuelven a insertar los nuevos.
+  await db('movie_genders').where('movie_id', movie.id).del();
+  const movieGenders = movie.gendersIds.map((genderId) => {
+    return {
+      movie_id: movie.id,
+      gender_id: genderId
+    };
+  });
+  await db('movie_genders').insert(movieGenders);
+
+  // Se actualiza la película
+  await db('movie')
+    .where({ id: movie.id })
+    .update({
+      code: movie.code,
+      name: movie.name,
+      original_name: movie.originalName,
+      year: movie.year,
+      description: movie.description,
+      duration: movie.duration,
+      file_id: fileId
+    });
+
+  // Si se modificó la imagen, se elimina la anterior
+  if (!hasSameFile && previousFile) {
+    console.log('aca entró');
+    const { name } = await db('file').select('name').where({ id: previousFile.file_id }).first();
+
+    await db('file').where('id', previousFile.file_id).del();
+    await fs.unlink(`public/uploads/${name}`);
+  }
+
+  return { id: movie.id, name: movie.name };
+};
 
 movieModel.delete = async (id) => {
   const file = await db('movie').select('file_id').where({ id }).first();
@@ -111,8 +183,8 @@ movieModel.delete = async (id) => {
 
   await db('movie_genders').where('movie_id', id).del();
   await db('movie').where('id', id).del();
-  await db('file').where('id', file.file_id).del();
 
+  await db('file').where('id', file.file_id).del();
   await fs.unlink(`public/uploads/${name}`);
 };
 

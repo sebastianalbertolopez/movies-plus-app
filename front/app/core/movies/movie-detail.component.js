@@ -3,7 +3,18 @@ function movieDetailComponentCtrl(moviesApiService, commonService, navigationSer
 
   $ctrl.$onInit = () => {
     $ctrl.fileUrl = `${process.env.API_URL}/files/${$ctrl.movie.file.uuid}`;
-    $ctrl.gendersName = $ctrl.movie.genders.map(g => g.name).join(', ');
+    $ctrl.gendersName = $ctrl.movie.genders.map(gender => gender.name).join(', ');
+
+    $ctrl.actions = [
+      {
+        name: 'Modificar',
+        action: () => { $ctrl.update(); }
+      },
+      {
+        name: 'Eliminar',
+        action: $ctrl.delete
+      }
+    ];
 
     $ctrl.strLimit = 350;
     $ctrl.movieDescriptionLimit = $ctrl.strLimit;
@@ -20,6 +31,7 @@ function movieDetailComponentCtrl(moviesApiService, commonService, navigationSer
   };
 
   $ctrl.update = () => {
+    debugger;
     navigationService.goToMovieUpdatePage($ctrl.movie.id);
   };
 

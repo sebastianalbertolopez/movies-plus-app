@@ -17,11 +17,13 @@ function uploadFileComponentCtrl(Upload, commonService) {
       Upload.base64DataUrl(file).then((base64) => {
         const content = base64.split(',')[1];
         const fileObject = {
-          base64Content: content,
-          name: file.name,
-          type: file.type,
-          size: file.size
+          base64Content: content, // "lashdkjashdjashdkjashdahsh"
+          name: file.name, // imagen.png
+          type: file.type, // image/png
+          size: file.size // 7643746
         };
+
+        // { id, uuid }
 
         $ctrl.fileInfo = file;
         $ctrl.file = fileObject;

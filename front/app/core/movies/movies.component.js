@@ -9,6 +9,13 @@ function moviesComponentCtrl(moviesApiService, navigationService, commonService)
       });
     }
 
+    $ctrl.actions = [
+      {
+        name: 'Agregar',
+        action: $ctrl.createMovie
+      }
+    ];
+
     $ctrl.isInitialized = true;
   };
 

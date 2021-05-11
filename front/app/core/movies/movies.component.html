@@ -1,10 +1,5 @@
 <div ng-show="$ctrl.isInitialized">
-  <div class="page-header">
-    <div class="title">Listado de películas</div>
-    <div class="actions">
-      <button type="button" class="btn btn-primary" ng-click="$ctrl.createMovie();">Agregar</button>
-    </div>
-  </div>
+  <page-header title="'Listado de películas'" actions="$ctrl.actions"></page-header>
   <div class="row">
     <div class="col-sm-6 col-md-3" ng-repeat="movie in $ctrl.movies">
       <div class="thumbnail clickable" ng-click="$ctrl.goToMovieDetail(movie.id);">

@@ -1,11 +1,5 @@
 <div ng-if="$ctrl.isInitialized">
-  <div class="page-header">
-    <div class="title">{{$ctrl.movie.name}}</div>
-    <div class="actions">
-      <button type="button" class="btn btn-primary" ng-click="$ctrl.update();">Modificar</button>
-      <button type="button" class="btn btn-primary" ng-click="$ctrl.delete();">Eliminar</button>
-    </div>
-  </div>
+  <page-header title="$ctrl.movie.name" actions="$ctrl.actions"></page-header>
   <div class="row">
     <div class="col-md-4 col-sm-6 col-xs-12">
       <img class="img-responsive" ng-src="{{$ctrl.fileUrl}}" />

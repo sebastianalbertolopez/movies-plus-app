@@ -4,6 +4,7 @@ function movieUpdateComponentCtrl(moviesApiService, navigationService, commonSer
   $ctrl.$onInit = async () => {
     $ctrl.genders = await utilsApiService.getGenders();
 
+    console.log($ctrl.genders);
     $ctrl.isInitialized = true;
     $ctrl.savingInProcess = false;
   };
@@ -12,6 +13,7 @@ function movieUpdateComponentCtrl(moviesApiService, navigationService, commonSer
     $ctrl.savingInProcess = true;
 
     const movie = {
+      id: $ctrl.movie.id,
       code: $ctrl.movie.code,
       name: $ctrl.movie.name,
       originalName: $ctrl.movie.originalName,

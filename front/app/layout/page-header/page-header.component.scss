@@ -1,0 +1,17 @@
+.page-header {
+  border-bottom: 1px solid $black-bg;
+  margin-top: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .title {
+    flex: 1;
+    font-size: 2rem;
+  }
+  .actions {
+    button.btn {
+      margin-left: 5px;
+    }
+  }
+}

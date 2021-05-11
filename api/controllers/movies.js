@@ -31,7 +31,10 @@ moviesController.create = catchAsync(async (req, res, next) => {
   sendOK(res, response);
 });
 
-moviesController.update = async (req, res, next) => {};
+moviesController.update = async (req, res, next) => {
+  const response = await movie.update(req.body);
+  sendOK(res, response);
+};
 
 moviesController.remove = async (req, res, next) => {
   await movie.delete(req.params.id);
