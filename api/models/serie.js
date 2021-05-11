@@ -3,55 +3,68 @@ const uuid = require('uuid/v4');
 const db = require('../database/config');
 const ErrorHandler = require('../helpers/errorHandler');
 
-const movieModel = {};
+const serieModel = {};
 
-movieModel.getAll = async (filterModel) => {
-  const movies = await db.raw(`
+serieModel.getAll = async (filterModel) => {
+  const series = await db.raw(`
     select 
-      mv.id, 
-      mv.name, 
+      s.id, 
+      s.name,
+      s.sesions,
       f.uuid as file_uuid, 
       array(
         select g.name 
-        from movie_genders mg
+        from serie_genders sg
         inner join gender g
-        on g.id = mg.gender_id
-        where mg.movie_id = mv.id
+        on g.id = sg.gender_id
+        where sg.serie_id = s.id
       ) as genders
-    from movie mv
+    from serie s
     inner join file f
-    on f.id = mv.file_id;
+    on f.id = s.file_id;
   `);
 
-  return movies.rows;
+  return series.rows;
 };
 
-movieModel.getById = async (id) => {
-  const [movie] = (await db.raw(`
+serieModel.getById = async (id) => {
+  const [serie] = (await db.raw(`
     SELECT 
-      mv.*, 
+      s.*, 
       json_build_object('id',f.id,'uuid',f.uuid) AS file,
       (
         SELECT json_agg(json_build_object('id',g.id,'name',g.name)) 
-        FROM movie_genders mg 
+        FROM serie_genders sg 
         INNER JOIN gender g
-        ON g.id = mg.gender_id
-        WHERE mg.movie_id = mv.id
+        ON g.id = sg.gender_id
+        WHERE sg.serie_id = s.id
       ) AS genders
-    FROM movie mv
+    FROM serie s
     INNER JOIN file f
-    ON f.id = mv.file_id
-    WHERE mv.id = ${id};
+    ON f.id = s.file_id
+    WHERE s.id = ${id};
   `)).rows;
 
-  if (!movie) {
-    throw new ErrorHandler('No movie found with that ID', 404);
+  if (!serie) {
+    throw new ErrorHandler('No serie found with that ID', 404);
   }
 
-  return movie;
+  return serie;
 };
 
-movieModel.create = async ({ code, name, originalName, duration, file, year, gendersIds, description }) => {
+serieModel.create = async (serie) => {
+  const {
+    code,
+    name,
+    originalName,
+    totalDuration,
+    file,
+    year,
+    seasons,
+    gendersIds,
+    description
+  } = serie;
+
   const fileUuid = uuid();
   const extension = file.name.split('.').pop();
   const fileName = `${fileUuid}.${extension}`;
@@ -77,43 +90,45 @@ movieModel.create = async ({ code, name, originalName, duration, file, year, gen
     .into('file')
     .returning('id');
 
-  const [movieId] = await db
+  const [serieId] = await db
     .insert({
       code,
       name,
       original_name: originalName,
       year,
       description,
-      duration,
+      total_duration: totalDuration,
+      seasons,
       file_id: fileId
     })
-    .into('movie')
+    .into('serie')
     .returning('id');
 
-  const movieGenders = gendersIds.map((genderId) => {
+  const serieGenders = gendersIds.map((genderId) => {
     return {
-      movie_id: movieId,
+      serie_id: serieId,
       gender_id: genderId
     };
   });
 
-  await db('movie_genders').insert(movieGenders);
+  await db('serie_genders').insert(serieGenders);
 
-  return { id: movieId, name };
+  return { id: serieId, name };
 };
 
-movieModel.update = async (movie) => {
+serieModel.update = async (serie) => {
   const {
     id,
     code,
     name,
     originalName,
-    duration,
+    totalDuration,
     file,
     year,
+    seasons,
     gendersIds,
     description
-  } = movie;
+  } = serie;
 
   let previousFile = null;
   let fileId = null;
@@ -151,25 +166,25 @@ movieModel.update = async (movie) => {
       .into('file')
       .returning('id');
 
-    previousFile = await db('movie as mv')
+    previousFile = await db('serie as s')
       .select('f.id', 'f.name')
-      .join('file as f', 'f.id', 'mv.file_id')
-      .where('mv.id', id)
+      .join('file as f', 'f.id', 's.file_id')
+      .where('s.id', id)
       .first();
   }
 
-  // Se eliminan los géneros de la película y se vuelven a insertar los nuevos.
-  await db('movie_genders').where('movie_id', id).del();
-  const movieGenders = gendersIds.map((genderId) => {
+  // Se eliminan los géneros de la serie y se vuelven a insertar los nuevos.
+  await db('serie_genders').where('serie_id', id).del();
+  const serieGenders = gendersIds.map((genderId) => {
     return {
-      movie_id: id,
+      serie_id: id,
       gender_id: genderId
     };
   });
-  await db('movie_genders').insert(movieGenders);
+  await db('serie_genders').insert(serieGenders);
 
-  // Se actualiza la película
-  await db('movie')
+  // Se actualiza la serie
+  await db('serie')
     .where({ id })
     .update({
       code,
@@ -177,7 +192,8 @@ movieModel.update = async (movie) => {
       original_name: originalName,
       year,
       description,
-      duration,
+      seasons,
+      total_duration: totalDuration,
       file_id: fileId
     });
 
@@ -190,18 +206,18 @@ movieModel.update = async (movie) => {
   return { id, name };
 };
 
-movieModel.delete = async (id) => {
-  const file = await db('movie as mv')
+serieModel.delete = async (id) => {
+  const file = await db('serie as s')
     .select('f.id', 'f.name')
-    .join('file as f', 'f.id', 'mv.file_id')
-    .where('mv.id', id)
+    .join('file as f', 'f.id', 's.file_id')
+    .where('s.id', id)
     .first();
 
-  await db('movie_genders').where('movie_id', id).del();
-  await db('movie').where({ id }).del();
+  await db('serie_genders').where('serie_id', id).del();
+  await db('serie').where({ id }).del();
 
-  await db('file').where('id', file.id).del();
+  await db('file').where('id', file.file_id).del();
   await fs.unlink(`${process.env.FILE_STORAGE_PATH}/${file.name}`);
 };
 
-module.exports = movieModel;
+module.exports = serieModel;

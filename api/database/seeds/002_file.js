@@ -6,7 +6,7 @@ exports.seed = (knex) => {
       original_name: '450_1000.jpg',
       extension: 'jpg',
       mime_type: 'image/jpeg',
-      destination: 'public/uploads',
+      destination: process.env.FILE_STORAGE_PATH,
       path: 'public//uploads//22bc0de6-5f1b-4fdc-a158-971b98d9836e.jpg',
       size: 50793
     }));

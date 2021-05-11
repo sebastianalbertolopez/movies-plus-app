@@ -31,7 +31,6 @@ function movieDetailComponentCtrl(moviesApiService, commonService, navigationSer
   };
 
   $ctrl.update = () => {
-    debugger;
     navigationService.goToMovieUpdatePage($ctrl.movie.id);
   };
 

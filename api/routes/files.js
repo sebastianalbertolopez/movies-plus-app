@@ -10,7 +10,7 @@ const fileUpload = multer({
   storage: multer.diskStorage(
     {
       destination: (req, file, cb) => {
-        cb(null, 'public/uploads');
+        cb(null, process.env.FILE_STORAGE_PATH);
       },
       filename: (req, file, cb) => {
         const extension = file.originalname.split('.').pop();

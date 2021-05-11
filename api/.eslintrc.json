@@ -23,7 +23,7 @@
     "max-len": ["error", { "code": 500 }],
     "no-use-before-define": ["error", { "functions": false, "classes": false }],
     "brace-style": ["error", "stroustrup", { "allowSingleLine": true }],
-    "arrow-body-style": ["warn", "as-needed", { "requireReturnForObjectLiteral": true }],// ["error", "as-needed"],
+    "arrow-body-style": ["warn", "as-needed", { "requireReturnForObjectLiteral": true }],
     "object-curly-newline": ["error", { "multiline": true, "minProperties": 0 }],
     "comma-dangle": ["error", "never"],
     "arrow-parens": [2, "as-needed", { "requireForBlockBody": true }]

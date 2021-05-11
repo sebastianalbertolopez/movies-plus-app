@@ -23,20 +23,38 @@ exports.up = (knex) => {
       table.text('original_name', 100).unique().notNullable();
       table.integer('year', 10).notNullable();
       table.text('description', 1000);
-      table.integer('duration', 5).notNullable();
+      table.integer('duration').notNullable();
+      table.integer('file_id').references('id').inTable('file');
+    })
+    .createTable('serie', (table) => {
+      table.increments('id').unsigned().primary();
+      table.text('code', 50).unique().notNullable();
+      table.text('name', 100).unique().notNullable();
+      table.text('original_name', 100).unique().notNullable();
+      table.integer('year', 10).notNullable();
+      table.text('description', 1000);
+      table.integer('total_duration').notNullable();
+      table.integer('seasons').notNullable();
       table.integer('file_id').references('id').inTable('file');
     })
     .createTable('movie_genders', (table) => {
       table.integer('movie_id').references('id').inTable('movie');
       table.integer('gender_id').references('id').inTable('gender');
       table.primary(['movie_id', 'gender_id']);
+    })
+    .createTable('serie_genders', (table) => {
+      table.integer('serie_id').references('id').inTable('serie');
+      table.integer('gender_id').references('id').inTable('gender');
+      table.primary(['serie_id', 'gender_id']);
     });
 };
 
 exports.down = (knex) => {
   return knex.schema
     .dropTableIfExists('movie_genders')
+    .dropTableIfExists('serie_genders')
     .dropTableIfExists('gender')
     .dropTableIfExists('movie')
+    .dropTableIfExists('serie')
     .dropTableIfExists('file');
 };

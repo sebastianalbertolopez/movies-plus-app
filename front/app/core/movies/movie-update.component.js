@@ -4,7 +4,6 @@ function movieUpdateComponentCtrl(moviesApiService, navigationService, commonSer
   $ctrl.$onInit = async () => {
     $ctrl.genders = await utilsApiService.getGenders();
 
-    console.log($ctrl.genders);
     $ctrl.isInitialized = true;
     $ctrl.savingInProcess = false;
   };
