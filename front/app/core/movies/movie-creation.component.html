@@ -3,8 +3,52 @@
     <div class="title">Nueva película</div>
   </div>
   <div class="row">
-    <div class="col-md-12">
-      <h1>CREATE</h1>
+    <div class="col-md-6 col-sm-12 col-xs-12">
+      <form name="$ctrl.movieCreationForm">
+        <div class="field">
+          <label for="code" class="required">Código</label>
+          <input type="text" ng-model="$ctrl.movie.code" class="form-control value" id="code" required>
+        </div>
+        <div class="field">
+          <label for="name" class="required">Título</label>
+          <input type="text" class="form-control value" ng-model="$ctrl.movie.name" id="name" required>
+        </div>
+        <div class="field">
+          <label for="originalName" class="required">Título original</label>
+          <input type="text" ng-model="$ctrl.movie.originalName" class="form-control value" id="originalName" required>
+        </div>
+        <div class="field">
+          <label for="duration" class="required">Duración</label>
+          <input type="number" ng-model="$ctrl.movie.duration" class="form-control value" id="duration" required>
+        </div>
+        <div class="field">
+          <label class="required">Imagen</label>
+          <upload-image image="$ctrl.movie.image"></upload-image>
+        </div>
+        <div class="field">
+          <label for="year" class="required">Año</label>
+          <input type="number" ng-model="$ctrl.movie.year" class="form-control value" id="year" required>
+        </div>
+        <div class="field">
+          <label class="required">Géneros</label>
+          <div class="genders">
+            <ui-select multiple ng-model="$ctrl.movie.genders" theme="bootstrap" close-on-select="false">
+              <ui-select-match placeholder="'Click' para seleccionar">{{$item.name}}</ui-select-match>
+              <ui-select-choices repeat="gender in $ctrl.genders | filter: $select.search">
+                <div ng-bind-html="gender.name | highlight: $select.search"></div>
+              </ui-select-choices>
+            </ui-select>
+          </div>
+        </div>
+        <div class="field">
+          <label for="description" class="required">Sinópsis</label>
+          <textarea ng-model="$ctrl.movie.description" rows="7" class="form-control value" id="description" required></textarea>
+        </div>
+      </form>
+    </div>
+    <div class="col-md-12 col-sm-12 col-xs-12">
+      <button type="button" class="btn btn-primary" ng-click="$ctrl.save();" ng-disabled="!$ctrl.isValidForm() || $ctrl.savingInProcess;">Guardar</button>
+      <button type="button" class="btn btn-default" ng-click="$ctrl.goToMoviesListPage();" ng-disabled="$ctrl.savingInProcess">Cancelar</button>
     </div>
   </div>
 </div>

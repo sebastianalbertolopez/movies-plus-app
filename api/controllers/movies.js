@@ -15,8 +15,9 @@ moviesController.get = catchAsync(async (req, res, next) => {
 });
 
 moviesController.create = catchAsync(async (req, res, next) => {
-  await movie.create(req.body);
-  sendOK(res, { name: req.body.name });
+  const response = await movie.create(req.body);
+  console.log('la respuesta es', response);
+  sendOK(res, response);
 });
 
 moviesController.update = async (req, res, next) => {};

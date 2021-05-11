@@ -1,9 +1,7 @@
 function homeComponentCtrl() {
   const $ctrl = this;
 
-  $ctrl.$onInit = () => {
-    $ctrl.title = 'Home component working!';
-  };
+  $ctrl.$onInit = () => {};
 }
 
 export default {

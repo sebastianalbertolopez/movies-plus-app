@@ -6,7 +6,7 @@ import moviesApiService from './movies.api.service';
 
 export default angular.module('moviesModule', [])
   .component('movies', moviesComponent)
-  .component('movieCreation', movieCreationComponent)
+  .component('movieCreation', movieCreationComponent) // <movie-creation></movie-creation>
   .component('movieDetail', movieDetailComponent)
   .service('moviesApiService', moviesApiService)
   .run(moviesRoutes);

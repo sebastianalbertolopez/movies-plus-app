@@ -5,6 +5,7 @@ import moment from 'moment';
 
 // Dependencies
 import 'jquery';
+import 'angular-sanitize';
 import 'angular-animate';
 import 'angular-cookies';
 import 'angular-translate';
@@ -18,7 +19,11 @@ import 'angular-ui-tree';
 import 'angular-filter';
 import 'bootstrap-sass';
 import 'bootstrap-colorpicker';
+import 'ng-file-upload';
+import 'ngstorage';
 import ngFileSaver from 'angular-file-saver';
+import 'ui-select';
+import 'ng-notify';
 
 // Modules
 import coreModule from './core/core.module';
@@ -32,6 +37,7 @@ angular
     'ngAnimate',
     'ngCookies',
     'ui.router',
+    'ngSanitize',
     'angular-loading-bar',
     'cfp.loadingBar',
     'pascalprecht.translate',
@@ -41,6 +47,10 @@ angular
     'angular.filter',
     'ui.tree',
     ngFileSaver,
+    'ngFileUpload',
+    'ngStorage',
+    'ui.select',
+    'ngNotify',
     layoutModule.name,
     coreModule.name
   ])
@@ -56,13 +66,7 @@ angular
       $translateProvider,
       cfpLoadingBarProvider,
       $stateProvider
-      /* $locationProvider, */
     ) => {
-      /* $locationProvider.html5Mode({
-        enabled: true,
-        requireBase: false,
-      }); */
-
       $translateProvider.preferredLanguage('es');
 
       $qProvider.errorOnUnhandledRejections(false);

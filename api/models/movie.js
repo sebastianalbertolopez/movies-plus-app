@@ -1,5 +1,5 @@
 const path = require('path');
-const fs = require('fs');
+const fs = require('fs').promises;
 const uuid = require('uuid/v4');
 const db = require('../database/config');
 const ErrorHandler = require('../helpers/errorHandler');
@@ -46,8 +46,6 @@ movieModel.getById = async (id) => {
     where mv.id = ${Number(id)};
   `)).rows;
 
-  console.log(movie);
-
   if (!movie) {
     throw new ErrorHandler('No movie found with that ID', 404);
   }
@@ -55,30 +53,37 @@ movieModel.getById = async (id) => {
   return movie;
 };
 
-movieModel.create = async ({ name, code, year, description, duration, file, gendersIds }) => {
-  const fileUuid = uuid();
+movieModel.create = async ({ code, name, originalName, duration, image, year, gendersIds, description }) => {
+  const imageUuid = uuid();
+  const extension = image.name.split('.').pop();
+  const imageName = `${imageUuid}.${extension}`;
 
-  fs.writeFile(
-    path.resolve(__dirname, `${fileUuid}.png`),
-    file.base64,
+  await fs.writeFile(
+    `public/uploads/${imageName}`,
+    image.base64Content,
     'base64',
     err => Promise.reject(err)
   );
 
   const [fileId] = await db
     .insert({
-      name: file.name,
-      uuid: fileUuid,
-      mime_type: file.mime_type,
-      size: file.size
+      name: `${imageName}`,
+      uuid: imageUuid,
+      original_name: image.name,
+      extension,
+      destination: 'public/uploads',
+      path: `public//uploads//${imageName}`,
+      mime_type: image.type,
+      size: image.size
     })
     .into('file')
     .returning('id');
 
   const [movieId] = await db
     .insert({
-      name,
       code,
+      name,
+      original_name: originalName,
       year,
       description,
       duration,
@@ -95,6 +100,8 @@ movieModel.create = async ({ name, code, year, description, duration, file, gend
   });
 
   await db('movie_genders').insert(movieGenders);
+
+  return { id: movieId, name };
 };
 
 movieModel.update = async (id, { name, code, year, description, duration, file, gendersIds }) => {};

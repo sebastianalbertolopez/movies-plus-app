@@ -7,7 +7,7 @@ export default function navigationService($state, $location) {
       $location.url(URL);
     },
     goToMoviesListPage: () => {
-      $state.go('main.home.movies.list');
+      $state.go(process.env.DEFAULT_PAGE_STATE);
     },
     goToMovieCreationPage: () => {
       $state.go('main.home.movies.create');

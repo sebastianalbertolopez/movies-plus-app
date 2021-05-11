@@ -2,6 +2,8 @@ import homeModule from './home/home.module';
 import moviesModule from './movies/movies.module';
 import routerHelperProvider from './router-helper.provider';
 import navigationService from './navigation.service';
+import commonService from './common.service';
+import utilsApiService from './utils.api.service';
 
 const coreModule = angular.module('coreModule', [
   homeModule.name,
@@ -9,4 +11,6 @@ const coreModule = angular.module('coreModule', [
 ]);
 export default coreModule
   .provider('routerHelper', routerHelperProvider)
-  .service('navigationService', navigationService);
+  .service('navigationService', navigationService)
+  .service('commonService', commonService)
+  .service('utilsApiService', utilsApiService);

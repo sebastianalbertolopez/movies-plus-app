@@ -4,7 +4,7 @@
   "description": "API Movies application",
   "main": "app.js",
   "scripts": {
-    "start": "nodemon app",
+    "start": "nodemon app.js",
     "migrate": "knex migrate:latest",
     "unmigrate": "knex migrate:rollback",
     "seed": "knex seed:run",

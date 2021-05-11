@@ -1,10 +1,37 @@
 <div ng-if="$ctrl.isInitialized">
   <div class="page-header">
-    <div class="title">Película: {{$ctrl.movie.name}}</div>
+    <div class="title">{{$ctrl.movie.name}}</div>
   </div>
   <div class="row">
-    <div class="col-md-12">
-      <h1>DETAIL</h1>
+    <div class="col-md-4 col-sm-6 col-xs-12">
+      <img class="img-responsive" ng-src="{{$ctrl.movie.fileUrl}}" />
+    </div>
+    <div class="col-md-8 col-sm-6 col-xs-12">
+      <div class="field">
+        <label>Título original</label>
+        <div class="value not-editable">{{$ctrl.movie.original_name}}</div>
+      </div>
+      <div class="field">
+        <label>Año</label>
+        <div class="value not-editable">{{$ctrl.movie.year}}</div>
+      </div>
+      <div class="field">
+        <label>Géneros</label>
+        <div class="value not-editable">{{$ctrl.movie.genders.join(', ')}}</div>
+      </div>
+      <div class="field">
+        <label>Duración</label>
+        <div class="value not-editable">{{$ctrl.movie.duration}} mins</div>
+      </div>
+      <div class="field">
+        <label>Sinópsis</label>
+        <div class="value not-editable">
+          {{$ctrl.movie.description | limitTo: $ctrl.movieDescriptionLimit}}
+          {{$ctrl.movie.description.length > $ctrl.movieDescriptionLimit ? '...' : ''}}
+        </div>
+        <a class="clickable" ng-show="$ctrl.movie.description.length > $ctrl.movieDescriptionLimit" ng-click="$ctrl.showMore();">Ver más</a>
+        <a class="clickable" ng-show="$ctrl.movieDescriptionLimit > $ctrl.strLimit" ng-click="$ctrl.showLess();">Ver menos</a>
+      </div>
     </div>
   </div>
 </div>

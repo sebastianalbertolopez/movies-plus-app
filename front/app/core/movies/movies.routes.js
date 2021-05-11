@@ -31,7 +31,7 @@ function getStates() {
       config: {
         url: '/{id:int}',
         template: '<movie-detail movie="$ctrl.movie"></movie-detail>',
-        controller: ['movie', function(movie) {
+        controller: ['movie', function (movie) {
           const $ctrl = this;
           $ctrl.movie = movie;
         }],

@@ -20,6 +20,7 @@ exports.up = (knex) => {
       table.increments('id').unsigned().primary();
       table.text('code', 50).unique().notNullable();
       table.text('name', 100).unique().notNullable();
+      table.text('original_name', 100).unique().notNullable();
       table.integer('year', 10).notNullable();
       table.text('description', 1000);
       table.integer('duration', 5).notNullable();

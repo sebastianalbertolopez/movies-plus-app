@@ -56,6 +56,10 @@ exports.seed = (knex) => {
       {
         name: 'Fantasía',
         code: 'fantasia'
+      },
+      {
+        name: 'Crimen',
+        code: 'crimen'
       }
     ]));
 };

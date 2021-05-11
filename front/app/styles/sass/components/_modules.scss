@@ -1,2 +1,4 @@
-@import '../../../core/home/home.component';
-@import '../../../core/movies/movies.component';
+@import '../../../core/home/home.module';
+@import '../../../core/movies/movies.module';
+
+@import '../../../layout/upload-image/upload-image.component';

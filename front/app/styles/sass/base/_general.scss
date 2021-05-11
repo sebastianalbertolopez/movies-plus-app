@@ -58,6 +58,31 @@ body {
   }
 }
 
+.field {
+  @extend .form-group;
+  margin-bottom: 1rem;
+
+  label {
+    margin-bottom: 2px;
+
+    &.required::after {
+      content: '*';
+      color: #ed5565;
+      margin-left: 4px;
+    }
+  }
+  .value {
+    &.not-editable {
+      text-align: justify;
+      text-justify: inter-word;
+    }
+  }
+}
+
+textarea {
+  resize: none;
+}
+
 .clickable {
   @include clickable();
 }

@@ -11,6 +11,9 @@
 $icon-font-path: '~bootstrap-sass/assets/fonts/bootstrap/';
 @import 'bootstrap-sass/assets/stylesheets/_bootstrap.scss';
 
+@import '../../../node_modules/ui-select/dist/select.css';
+@import '../../../node_modules/ng-notify/dist/ng-notify.min.css';
+
 @import './utilities/variables';
 @import './utilities/mixins';
 

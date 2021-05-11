@@ -1,8 +1,8 @@
-function moviesComponentCtrl(moviesApiService, navigationService) {
+function moviesComponentCtrl(moviesApiService, navigationService, commonService) {
   const $ctrl = this;
 
   $ctrl.$onInit = async () => {
-    $ctrl.movies = await moviesApiService.list().catch((err) => { alert(err.message); });
+    $ctrl.movies = await moviesApiService.list().catch(err => commonService.error(err.message));
     if ($ctrl.movies) {
       angular.forEach($ctrl.movies, (movie) => {
         movie.fileUrl = `${process.env.API_URL}/files/${movie.file_uuid}`;
@@ -19,6 +19,6 @@ function moviesComponentCtrl(moviesApiService, navigationService) {
 
 export default {
   templateUrl: 'app/core/movies/movies.component.html',
-  controller: ['moviesApiService', 'navigationService', moviesComponentCtrl],
+  controller: ['moviesApiService', 'navigationService', 'commonService', moviesComponentCtrl],
   bindings: {}
 };

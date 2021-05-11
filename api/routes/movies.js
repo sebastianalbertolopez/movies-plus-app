@@ -11,8 +11,8 @@ const {
 // api/movies
 router.get('/', getAll);
 router.get('/:id', get);
-router.post('/new', create);
-router.put('/:id', update);
+router.post('/', create);
+router.put('/', update);
 router.delete('/:id', remove);
 
 module.exports = router;
