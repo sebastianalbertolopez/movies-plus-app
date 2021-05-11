@@ -1,7 +1,7 @@
-<div ng-if="!$ctrl.image">
+<div ng-if="!$ctrl.file">
   <div 
-    class="image-upload-btn" 
-    ngf-select="$ctrl.uploadImage($file, $invalidFiles)" 
+    class="file-upload-btn" 
+    ngf-select="$ctrl.uploadFile($file, $invalidFiles)" 
     ngf-max-size="{{$ctrl.maxSize}}MB" 
     ngf-pattern="'image/*'" 
     ngf-accept="'image/*'"
@@ -9,12 +9,12 @@
     <i class="glyphicon glyphicon-paperclip"></i>
   </div>
 </div>
-<div ng-if="$ctrl.image">
+<div ng-if="$ctrl.file">
   <div class="overlay-container thumb-photo">
-    <div class="thumb-photo" ngf-background="$ctrl.imageInfo" ng-mouseover="$ctrl.displayOverlay = true"></div>
+    <div class="thumb-photo" ngf-background="$ctrl.fileInfo" ng-mouseover="$ctrl.displayOverlay = true"></div>
     <div class="overlay" ng-show="$ctrl.displayOverlay" ng-mouseleave="$ctrl.displayOverlay = false">
       <div class="overlay-action">
-        <i class="clickable glyphicon glyphicon-trash" ng-click="$ctrl.removeImage()"></i>
+        <i class="clickable glyphicon glyphicon-trash" ng-click="$ctrl.removeFile()"></i>
       </div>
     </div>
   </div>

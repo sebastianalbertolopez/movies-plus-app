@@ -1,9 +1,7 @@
-function movieCreationComponentCtrl(moviesApiService, navigationService, commonService, utilsApiService) {
+function movieUpdateComponentCtrl(moviesApiService, navigationService, commonService, utilsApiService) {
   const $ctrl = this;
 
   $ctrl.$onInit = async () => {
-    $ctrl.movie = {};
-
     $ctrl.genders = await utilsApiService.getGenders();
 
     $ctrl.isInitialized = true;
@@ -24,10 +22,10 @@ function movieCreationComponentCtrl(moviesApiService, navigationService, commonS
       description: $ctrl.movie.description
     };
 
-    const response = await moviesApiService.save(movie).catch(err => commonService.error(err.data.message));
+    const response = await moviesApiService.update(movie).catch(err => commonService.error(err.data.message));
     if (response) {
       $ctrl.savingInProcess = false;
-      commonService.success(`Se generó la película ${response.name}`);
+      commonService.success(`Se modificó la película ${response.name}`);
 
       navigationService.goToMovieDetailPage(response.id);
     }
@@ -35,17 +33,17 @@ function movieCreationComponentCtrl(moviesApiService, navigationService, commonS
 
   $ctrl.goToMoviesListPage = () => navigationService.goToMoviesListPage();
 
-  $ctrl.isValidForm = () => $ctrl.movieCreationForm.$valid && $ctrl.movie.file && $ctrl.movie.genders.length;
+  $ctrl.isValidForm = () => $ctrl.movieUpdateForm.$valid && $ctrl.movie.file && $ctrl.movie.genders.length;
 }
 
 export default {
-  templateUrl: 'app/core/movies/movie-creation.component.html',
+  templateUrl: 'app/core/movies/movie-update.component.html',
   controller: [
     'moviesApiService',
     'navigationService',
     'commonService',
     'utilsApiService',
-    movieCreationComponentCtrl
+    movieUpdateComponentCtrl
   ],
-  bindings: {}
+  bindings: { movie: '<' }
 };

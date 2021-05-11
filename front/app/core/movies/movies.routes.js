@@ -43,6 +43,24 @@ function getStates() {
           }]
         }
       }
+    },
+    {
+      state: 'main.home.movies.update',
+      config: {
+        url: '/{id:int}/update',
+        template: '<movie-update movie="$ctrl.movie"></movie-update>',
+        controller: ['movie', function (movie) {
+          const $ctrl = this;
+          $ctrl.movie = movie;
+        }],
+        controllerAs: '$ctrl',
+        resolve: {
+          movie: ['moviesApiService', '$stateParams', async (moviesApiService, $stateParams) => {
+            const data = await moviesApiService.get($stateParams.id);
+            return data;
+          }]
+        }
+      }
     }
   ];
 }

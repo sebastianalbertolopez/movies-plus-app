@@ -1,26 +1,30 @@
-function uploadImageComponentCtrl(Upload, commonService) {
+function uploadFileComponentCtrl(Upload, commonService) {
   const $ctrl = this;
 
   $ctrl.$onInit = () => {
     $ctrl.displayOverlay = false;
+
+    if ($ctrl.file && $ctrl.file.uuid) {
+      $ctrl.fileInfo = `${process.env.API_URL}/files/${$ctrl.file.uuid}`;
+    }
   };
 
-  $ctrl.uploadImage = (image, $invalidFiles) => {
-    if (image) {
-      if (image.name.length > 100) {
+  $ctrl.uploadFile = (file, $invalidFiles) => {
+    if (file) {
+      if (file.name.length > 100) {
         return commonService.error('El nombre del archivo no debe superar los 100 caracteres');
       }
-      Upload.base64DataUrl(image).then((base64) => {
+      Upload.base64DataUrl(file).then((base64) => {
         const content = base64.split(',')[1];
-        const imageObject = {
+        const fileObject = {
           base64Content: content,
-          name: image.name,
-          type: image.type,
-          size: image.size
+          name: file.name,
+          type: file.type,
+          size: file.size
         };
 
-        $ctrl.imageInfo = image;
-        $ctrl.image = imageObject;
+        $ctrl.fileInfo = file;
+        $ctrl.file = fileObject;
       });
     }
     else if ($invalidFiles) {
@@ -40,14 +44,14 @@ function uploadImageComponentCtrl(Upload, commonService) {
     }
   };
 
-  $ctrl.removeImage = () => {
-    $ctrl.image = null;
-    $ctrl.imageInfo = null;
+  $ctrl.removeFile = () => {
+    $ctrl.file = null;
+    $ctrl.fileInfo = null;
   };
 }
 
 export default {
-  templateUrl: 'app/layout/upload-image/upload-image.component.html',
-  controller: ['Upload', 'commonService', uploadImageComponentCtrl],
-  bindings: { image: '=' }
+  templateUrl: 'app/layout/upload-file/upload-file.component.html',
+  controller: ['Upload', 'commonService', uploadFileComponentCtrl],
+  bindings: { file: '=' }
 };

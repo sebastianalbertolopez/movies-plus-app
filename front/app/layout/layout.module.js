@@ -1,8 +1,8 @@
 import headerComponent from './header/header.component';
-import uploadImageComponent from './upload-image/upload-image.component';
+import uploadFileComponent from './upload-file/upload-file.component';
 
 const layoutModule = angular.module('layoutModule', []);
 
 export default layoutModule
   .component('header', headerComponent)
-  .component('uploadImage', uploadImageComponent);
+  .component('uploadFile', uploadFileComponent);

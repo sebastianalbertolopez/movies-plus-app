@@ -6,7 +6,7 @@ const uuidV4 = require('uuid/v4');
 const db = require('../database/config');
 
 // Create multer object
-const imageUpload = multer({
+const fileUpload = multer({
   storage: multer.diskStorage(
     {
       destination: (req, file, cb) => {
@@ -21,7 +21,7 @@ const imageUpload = multer({
 });
 
 // api/movies
-router.post('/', imageUpload.single('image'), (req, res) => {
+router.post('/', fileUpload.single('image'), (req, res) => {
   const { filename, originalname, size, destination, mimetype } = req.file;
   const filepath = req.file.path;
   const extension = filename.split('.').pop();
@@ -46,7 +46,6 @@ router.post('/', imageUpload.single('image'), (req, res) => {
     }));
 });
 
-// Image Get Routes
 router.get('/:uuid', (req, res) => {
   const { uuid } = req.params;
 
@@ -54,14 +53,14 @@ router.get('/:uuid', (req, res) => {
     .select('*')
     .from('file')
     .where({ uuid })
-    .then((images) => {
-      if (images[0]) {
+    .then((files) => {
+      if (files[0]) {
         const dirname = path.resolve();
-        const fullfilepath = path.join(dirname, images[0].path);
-        return res.type(images[0].mime_type).sendFile(fullfilepath);
+        const fullfilepath = path.join(dirname, files[0].path);
+        return res.type(files[0].mime_type).sendFile(fullfilepath);
       }
       return Promise.reject(
-        new Error('Image does not exist')
+        new Error('File does not exist')
       );
     })
     .catch((err) => {

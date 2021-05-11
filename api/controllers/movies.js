@@ -10,18 +10,32 @@ moviesController.getAll = catchAsync(async (req, res, next) => {
 });
 
 moviesController.get = catchAsync(async (req, res, next) => {
-  const entity = await movie.getById(req.params.id);
+  const data = await movie.getById(req.params.id);
+  const entity = {
+    id: data.id,
+    code: data.code,
+    name: data.name,
+    originalName: data.original_name,
+    year: data.year,
+    description: data.description,
+    duration: data.duration,
+    file: data.file,
+    genders: data.genders
+  };
+
   sendOK(res, entity);
 });
 
 moviesController.create = catchAsync(async (req, res, next) => {
   const response = await movie.create(req.body);
-  console.log('la respuesta es', response);
   sendOK(res, response);
 });
 
 moviesController.update = async (req, res, next) => {};
 
-moviesController.remove = async (req, res, next) => {};
+moviesController.remove = async (req, res, next) => {
+  await movie.delete(req.params.id);
+  sendOK(res, {});
+};
 
 module.exports = moviesController;

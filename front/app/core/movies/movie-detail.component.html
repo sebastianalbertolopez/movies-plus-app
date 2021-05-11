@@ -1,15 +1,19 @@
 <div ng-if="$ctrl.isInitialized">
   <div class="page-header">
     <div class="title">{{$ctrl.movie.name}}</div>
+    <div class="actions">
+      <button type="button" class="btn btn-primary" ng-click="$ctrl.update();">Modificar</button>
+      <button type="button" class="btn btn-primary" ng-click="$ctrl.delete();">Eliminar</button>
+    </div>
   </div>
   <div class="row">
     <div class="col-md-4 col-sm-6 col-xs-12">
-      <img class="img-responsive" ng-src="{{$ctrl.movie.fileUrl}}" />
+      <img class="img-responsive" ng-src="{{$ctrl.fileUrl}}" />
     </div>
     <div class="col-md-8 col-sm-6 col-xs-12">
       <div class="field">
         <label>Título original</label>
-        <div class="value not-editable">{{$ctrl.movie.original_name}}</div>
+        <div class="value not-editable">{{$ctrl.movie.originalName}}</div>
       </div>
       <div class="field">
         <label>Año</label>
@@ -17,7 +21,7 @@
       </div>
       <div class="field">
         <label>Géneros</label>
-        <div class="value not-editable">{{$ctrl.movie.genders.join(', ')}}</div>
+        <div class="value not-editable">{{$ctrl.gendersName}}</div>
       </div>
       <div class="field">
         <label>Duración</label>

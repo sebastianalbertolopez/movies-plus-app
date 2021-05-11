@@ -28,22 +28,21 @@ movieModel.getAll = async (filterModel) => {
 };
 
 movieModel.getById = async (id) => {
-  // const movie = await db('movie').where({ id: Number(id) });
   const [movie] = (await db.raw(`
-    select 
+    SELECT 
       mv.*, 
-      f.uuid as file_uuid, 
-      array(
-        select g.name 
-        from movie_genders mg
-        inner join gender g
-        on g.id = mg.gender_id
-        where mg.movie_id = mv.id
-      ) as genders
-    from movie mv
-    inner join file f
-    on f.id = mv.file_id
-    where mv.id = ${Number(id)};
+      json_build_object('id',f.id,'uuid',f.uuid) AS file,
+      (
+        SELECT json_agg(json_build_object('id',g.id,'name',g.name)) 
+        FROM movie_genders mg 
+        INNER JOIN gender g
+        ON g.id = mg.gender_id
+        WHERE mg.movie_id = mv.id
+      ) AS genders
+    FROM movie mv
+    INNER JOIN file f
+    ON f.id = mv.file_id
+    WHERE mv.id = ${id};
   `)).rows;
 
   if (!movie) {
@@ -53,28 +52,28 @@ movieModel.getById = async (id) => {
   return movie;
 };
 
-movieModel.create = async ({ code, name, originalName, duration, image, year, gendersIds, description }) => {
-  const imageUuid = uuid();
-  const extension = image.name.split('.').pop();
-  const imageName = `${imageUuid}.${extension}`;
+movieModel.create = async ({ code, name, originalName, duration, file, year, gendersIds, description }) => {
+  const fileUuid = uuid();
+  const extension = file.name.split('.').pop();
+  const fileName = `${fileUuid}.${extension}`;
 
   await fs.writeFile(
-    `public/uploads/${imageName}`,
-    image.base64Content,
+    `public/uploads/${fileName}`,
+    file.base64Content,
     'base64',
     err => Promise.reject(err)
   );
 
   const [fileId] = await db
     .insert({
-      name: `${imageName}`,
-      uuid: imageUuid,
-      original_name: image.name,
+      name: `${fileName}`,
+      uuid: fileUuid,
+      original_name: file.name,
       extension,
       destination: 'public/uploads',
-      path: `public//uploads//${imageName}`,
-      mime_type: image.type,
-      size: image.size
+      path: `public//uploads//${fileName}`,
+      mime_type: file.type,
+      size: file.size
     })
     .into('file')
     .returning('id');
@@ -104,10 +103,17 @@ movieModel.create = async ({ code, name, originalName, duration, image, year, ge
   return { id: movieId, name };
 };
 
-movieModel.update = async (id, { name, code, year, description, duration, file, gendersIds }) => {};
+movieModel.update = async (movie) => {};
 
-movieModel.remove = async (id) => {
-  await db('movie').where('id', Number(id)).del();
+movieModel.delete = async (id) => {
+  const file = await db('movie').select('file_id').where({ id }).first();
+  const { name } = await db('file').select('name').where({ id: file.file_id }).first();
+
+  await db('movie_genders').where('movie_id', id).del();
+  await db('movie').where('id', id).del();
+  await db('file').where('id', file.file_id).del();
+
+  await fs.unlink(`public/uploads/${name}`);
 };
 
 module.exports = movieModel;
