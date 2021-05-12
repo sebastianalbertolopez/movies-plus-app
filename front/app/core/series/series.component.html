@@ -1,0 +1,15 @@
+<div ng-show="$ctrl.isInitialized">
+  <page-header title="'Listado de series'" actions="$ctrl.actions"></page-header>
+  <div class="row">
+    <div class="col-sm-6 col-md-3" ng-repeat="serie in $ctrl.series">
+      <div class="thumbnail clickable" ng-click="$ctrl.goToSerieDetail(serie.id);">
+        <img class="img-responsive" ng-src="{{serie.fileUrl}}" />
+        <div class="caption text-center">
+          <div class="title">{{serie.name}}</div>
+          <div class="genders">{{serie.genders.join(', ')}}</div>
+          <div>{{serie.seasons}} temporadas</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

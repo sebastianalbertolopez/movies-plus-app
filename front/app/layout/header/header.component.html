@@ -14,7 +14,7 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-        <li ng-repeat="page in $ctrl.pages" ng-class="{ 'active': page.code === $ctrl.activePageCode }" class="clickable">
+        <li ng-repeat="page in $ctrl.pages" ng-class="{ 'active': page.isActive(page.code) }" class="clickable">
           <a ng-click="page.onClick()">{{page.name}}</a>
         </li>
       </ul>

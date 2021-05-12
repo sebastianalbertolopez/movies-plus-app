@@ -10,7 +10,7 @@ serieModel.getAll = async (filterModel) => {
     select 
       s.id, 
       s.name,
-      s.sesions,
+      s.seasons,
       f.uuid as file_uuid, 
       array(
         select g.name 

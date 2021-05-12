@@ -17,6 +17,9 @@ export default function navigationService($state, $location) {
     },
     goToMovieUpdatePage: (id) => {
       $state.go('main.home.movies.update', { id });
+    },
+    goToSeriesListPage: () => {
+      $state.go('main.home.series.list');
     }
   };
 

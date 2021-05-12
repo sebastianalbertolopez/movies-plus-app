@@ -1,5 +1,6 @@
 import homeModule from './home/home.module';
 import moviesModule from './movies/movies.module';
+import seriesModule from './series/series.module';
 import routerHelperProvider from './router-helper.provider';
 import navigationService from './navigation.service';
 import commonService from './common.service';
@@ -8,7 +9,8 @@ import httpInterceptor from './http-interceptor.service';
 
 const coreModule = angular.module('coreModule', [
   homeModule.name,
-  moviesModule.name
+  moviesModule.name,
+  seriesModule.name
 ]);
 export default coreModule
   .provider('routerHelper', routerHelperProvider)
