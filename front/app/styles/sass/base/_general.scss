@@ -75,3 +75,21 @@ textarea {
 .clickable {
   @include clickable();
 }
+
+#loading-bar {
+  position: relative;
+
+  .bar {
+    -webkit-transition: width 0.5s;
+    -moz-transition: width 0.5s;
+    -o-transition: width 0.5s;
+    transition: width 0.5s;
+  
+    margin: 0 auto;
+    right: 0;
+    height: 4px;
+    background-color: $loading-bar-color;
+  
+    box-shadow: 0 0 10px 0;
+  }
+}
